@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %} Consulta de Empleados{% endblock titulo %}</title>
+</head>
+
+
+<body>
+ 
+<p>
+    {% block buscador %}
+
+    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+    method="POST">
+      {% csrf_token %}
+      <div class="input-group">
+
+        
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <a class="navbar-brand"></a>
+        <form class="form-inline">
+
+            <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar..." name="buscar" value="{{ request.POST.buscar }}">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="submit"> Buscar 
+     
+        </form>
+        
+      </nav>
+  
+          </button>
+          <a href="{% url 'crear_empleado' %}"> Crear Empleado</a> </td>
+        </div>
+      </div>
+    </form>
+    
+    {% endblock buscador %}
+
+    {% block cuerpo %}
+    <p>
+    <table class ="table" >
+        <thead class="thead-dark">
+
+    <tr>
+<th>ID Empleado </th>
+<th>Empresa </th>   
+<th>Departamento </th>        
+<th> Nombre </th>
+<th> Apellido Paterno </th>    
+<th> Apellido Materno </th>
+<th> Fecha de Nacimiento </th>
+<th> Email </th>
+<th> Genero</th>
+<th> Tel Casa </th>
+<th> Tel Celular </th>
+<th> Fecha Ingreso </th>
+<th> Opcion </th>            
+    </tr>
+</thead>
+<tbody>
+    {% for empleado in empleados %}
+    <tr>
+        <td>{{empleado.IdEmpleado}}</td>
+        <td>{{empleado.IdEmpresafk}}</td>
+        <td>{{empleado.IdDepartamentofk}}</td>
+        <td>{{empleado.Nombre}}</td>
+        <td>{{empleado.ApPaterno}}</td>
+        <td>{{empleado.ApMaterno}}</td>
+        <td>{{empleado.FechaNac}}</td>
+        <td>{{empleado.Email}}</td>
+        <td>{{empleado.Genero}}</td>
+        <td>{{empleado.TelCasa}}</td>
+        <td>{{empleado.TelCell}}</td>
+        <td>{{empleado.FechaIngreso}}</td>
+        <td><a href="{% url 'editar_empleado' empleado.IdEmpleado %}">EDITAR</a><a href="{% url 'eliminar_empleado' empleado.IdEmpleado %}"> ELIMINAR</a></td>
+    </tr>
+    {% endfor %}
+</tbody>
+    </table>
+    {% endblock cuerpo %}
+
+    
+</body>
+
+</html>

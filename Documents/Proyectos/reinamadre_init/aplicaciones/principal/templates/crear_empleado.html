@@ -1,0 +1,12 @@
+{% extends 'empleados.html' %}
+{% block titulo%}Formulario para crear un empleado {% endblock titulo%}
+{% block cuerpo%}
+
+<form method="post">
+    {% csrf_token  %}
+    {{ form.as_p }}
+    <button type="Submit" >Crear o Editar</button>
+    <a href="{% url 'lista_empleado' %}"> Cancelar</a></td>
+</form>
+
+{% endblock cuerpo%}
